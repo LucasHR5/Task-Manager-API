@@ -1,0 +1,1 @@
+{"version":3,"file":"prisma.d.mts","sourceRoot":"","sources":["../../src/prismasetup/prisma.mts"],"names":[],"mappings":"AAAA,OAAO,eAAe,CAAC;AACvB,OAAO,EAAE,mBAAmB,EAAE,MAAM,gCAAgC,CAAC;AACrE,OAAO,EAAE,YAAY,EAAE,MAAM,gBAAgB,CAAC;AAK9C,QAAA,MAAM,MAAM;;8DAAgC,CAAC;AAE7C,eAAgB,MAAM,CAAC"}
