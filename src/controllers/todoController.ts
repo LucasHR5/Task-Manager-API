@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { prisma } from "../prismasetup/prisma";
 import { TodoService } from "../services/todoService";
 
 const todoService = new TodoService
@@ -71,11 +70,9 @@ export class TodoController {
                 message: (error as Error).message
             });
         }
-
     }
 
     async deleteTask(req: Request, res: Response): Promise<Response> {
-
         try {
             const id = Number.parseInt(req.params.id, 10);
             const taskDeleted = await todoService.deleteTask(id);
