@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { prisma } from "../prismasetup/prisma";
+import { TodoService } from "../services/todoService";
 
+const todoService = new TodoService
 export class TodoController {
     async createTask(req: Request, res: Response) {
         const { title, category, isCompleted } = req.body;
@@ -9,11 +11,23 @@ export class TodoController {
             return res.status(400).json({ message: `O campo title é obrigatório.` });
         }
 
+        if(!category || typeof category != "string" || category.trim() ==="") {
+            return res.status(400).json({ message: `O campo category é obrigatório`});
+        }
+
+        if(typeof isCompleted != "boolean") {
+            return res.status(400).json({message: `o campo isCompleted precisa ser do tipo Boolean`});
+        }
+
+        const taskData = {
+            title, 
+            category,
+            isCompleted
+        }
+
         try {
-            const task = await prisma.todo.create({
-                data: { title, category, isCompleted },
-            });
-            return res.status(201).json(task);
+            const taskCreated = await todoService.createTask(taskData)
+            return res.status(201).json(taskCreated);
         } catch (error) {
             res.status(500).json({ message: `Ocorreu um erro interno ao criar a tarefa` })
         }
