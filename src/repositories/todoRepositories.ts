@@ -1,8 +1,9 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../prismasetup/prisma";
+import { CreateTaskDTO } from "../dtos/todo.dto";
 
 export class TodoRepository {
-    async createTask(taskData: Prisma.TodoCreateInput) {
+    async createTask(taskData: CreateTaskDTO) {
         const result = await prisma.todo.create({
             data: taskData
         });

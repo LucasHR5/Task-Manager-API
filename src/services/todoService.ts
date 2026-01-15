@@ -1,11 +1,12 @@
 import { Prisma } from "@prisma/client";
 import { TodoRepository } from "../repositories/todoRepositories";
+import { CreateTaskDTO } from "../dtos/todo.dto";
 
 const todoRepository = new TodoRepository
 
 export class TodoService {
 
-    async createTask(taskData: Prisma.TodoCreateInput) {
+    async createTask(taskData: CreateTaskDTO) {
         if(!taskData){
             throw new Error("Dados inválidos para  a Tarefa");
         }

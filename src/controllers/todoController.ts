@@ -1,27 +1,22 @@
 import { Request, Response } from "express";
 import { TodoService } from "../services/todoService";
+import { CreateTaskDTO } from "../dtos/todo.dto";
 
 const todoService = new TodoService
 export class TodoController {
     async createTask(req: Request, res: Response): Promise<Response> {
-        const { title, category, isCompleted } = req.body;
+        const taskData: CreateTaskDTO = req.body;
 
-        if (!title || typeof title != "string" || title.trim() === "") {
+        if (!taskData.title || typeof taskData.title != "string" || taskData.title.trim() === "") {
             return res.status(400).json({ message: `O campo title é obrigatório.` });
         }
 
-        if (!category || typeof category != "string" || category.trim() === "") {
+        if (!taskData.category || typeof taskData.category != "string" || taskData.category.trim() === "") {
             return res.status(400).json({ message: `O campo category é obrigatório` });
         }
 
-        if (typeof isCompleted != "boolean") {
+        if (typeof taskData.isCompleted != "boolean") {
             return res.status(400).json({ message: `o campo isCompleted precisa ser do tipo Boolean` });
-        }
-
-        const taskData = {
-            title,
-            category,
-            isCompleted
         }
 
         try {
