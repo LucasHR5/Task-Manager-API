@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { TodoRepository } from "../repositories/todoRepositories";
-import { CreateTaskDTO } from "../dtos/todo.dto";
+import { CreateTaskDTO } from "../dtos/createTaskDto";
+import { UpdateTaskDTO } from "../dtos/updateTask.dto";
 
 const todoRepository = new TodoRepository
 
@@ -17,7 +18,7 @@ export class TodoService {
         return await todoRepository.listAllTasks();
     }
 
-    async updateTask(id: number, taskData: Prisma.TodoUpdateInput) {
+    async updateTask(id: number, taskData: UpdateTaskDTO) {
         return await todoRepository.updateTask(id, taskData);
     }
 

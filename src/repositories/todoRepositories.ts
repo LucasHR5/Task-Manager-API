@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../prismasetup/prisma";
-import { CreateTaskDTO } from "../dtos/todo.dto";
+import { CreateTaskDTO } from "../dtos/createTaskDto";
+import { UpdateTaskDTO } from "../dtos/updateTask.dto";
 
 export class TodoRepository {
     async createTask(taskData: CreateTaskDTO) {
@@ -16,7 +17,7 @@ export class TodoRepository {
         return result;
     }
 
-    async updateTask(id: number, taskData: Partial<Prisma.TodoUpdateInput>) {
+    async updateTask(id: number, taskData: UpdateTaskDTO) {
         const result = await prisma.todo.update({
             where: { id },
             data: taskData,

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { TodoService } from "../services/todoService";
-import { CreateTaskDTO } from "../dtos/todo.dto";
+import { CreateTaskDTO } from "../dtos/createTaskDto";
+import { UpdateTaskDTO } from "../dtos/updateTask.dto";
 
 const todoService = new TodoService
 export class TodoController {
@@ -42,22 +43,17 @@ export class TodoController {
     async updateTask(req: Request, res: Response): Promise<Response> {
         try {
             const id = Number.parseInt(req.params.id, 10);
-            const { title, isCompleted } = req.body;
+            const updateTaskData: UpdateTaskDTO = req.body
 
-            if (title !== undefined && (typeof title !== "string" || title.trim() === "")) {
+            if (updateTaskData.title !== undefined && (typeof updateTaskData.title !== "string" || updateTaskData.title.trim() === "")) {
                 return res.status(400).json({ message: `O campo title não pode ser vazio` });
             }
 
-            if (isCompleted !== undefined && typeof isCompleted !== "boolean") {
+            if (updateTaskData.isCompleted !== undefined && typeof updateTaskData.isCompleted !== "boolean") {
                 return res.status(400).json({ message: 'O campo done deve ser um boolean.' });
             }
 
-            const taskData = {
-                title,
-                isCompleted
-            }
-
-            const result = await todoService.updateTask(id, taskData);
+            const result = await todoService.updateTask(id, updateTaskData);
             return res.status(200).json(result);
 
         } catch (error) {
